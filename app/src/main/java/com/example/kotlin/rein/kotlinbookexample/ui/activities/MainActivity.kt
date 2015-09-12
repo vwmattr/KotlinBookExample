@@ -1,4 +1,4 @@
-package com.example.kotlin.rein.kotlinbookexample.activities
+package com.example.kotlin.rein.kotlinbookexample.ui.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -7,10 +7,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
 import com.example.kotlin.rein.kotlinbookexample.R
-import com.example.kotlin.rein.kotlinbookexample.adapters.ForecastListAdapter
+import com.example.kotlin.rein.kotlinbookexample.data.Request
+import com.example.kotlin.rein.kotlinbookexample.ui.adapters.ForecastListAdapter
 import kotlinx.android.synthetic.activity_main.*
-import org.jetbrains.anko.find
-import org.jetbrains.anko.text
+import org.jetbrains.anko.*
 
 public class MainActivity : AppCompatActivity() {
 
@@ -30,6 +30,12 @@ public class MainActivity : AppCompatActivity() {
         val forecastList: RecyclerView = find(R.id.forecast_list)
         forecastList.setLayoutManager(LinearLayoutManager(this))
         forecastList.setAdapter(ForecastListAdapter(items))
+
+        val url = "http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7"
+        async {
+            Request(url).run()
+            uiThread { longToast("Request performed") }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -51,4 +57,6 @@ public class MainActivity : AppCompatActivity() {
 
         return super.onOptionsItemSelected(item)
     }
+
+
 }
