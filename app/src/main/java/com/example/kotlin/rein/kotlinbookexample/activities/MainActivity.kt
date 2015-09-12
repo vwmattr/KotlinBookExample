@@ -9,6 +9,7 @@ import android.view.MenuItem
 import com.example.kotlin.rein.kotlinbookexample.R
 import com.example.kotlin.rein.kotlinbookexample.adapters.ForecastListAdapter
 import kotlinx.android.synthetic.activity_main.*
+import org.jetbrains.anko.find
 import org.jetbrains.anko.text
 
 public class MainActivity : AppCompatActivity() {
@@ -26,7 +27,7 @@ public class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val forecastList = findViewById(R.id.forecast_list) as RecyclerView
+        val forecastList: RecyclerView = find(R.id.forecast_list)
         forecastList.setLayoutManager(LinearLayoutManager(this))
         forecastList.setAdapter(ForecastListAdapter(items))
     }
